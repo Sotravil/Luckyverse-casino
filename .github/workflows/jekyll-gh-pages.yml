@@ -30,6 +30,14 @@ jobs:
           source: ./
           destination: ./_site
 
+      # ✅ This proves whether "/" can work:
+      - name: Verify root index exists
+        run: |
+          echo "---- _site listing ----"
+          ls -la ./_site
+          echo "-----------------------"
+          test -f ./_site/index.html || (echo "ERROR: _site/index.html not found. '/' cannot serve index." && exit 1)
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
